@@ -19,6 +19,9 @@ def get_events():
 def add_event():
     data = request.get_json()
 
+    if not data or "title" not in data:
+        return jsonify({"error": "Title is required"}), 400
+
     new_id = max((event["id"] for event in events), default=0) + 1
 
     new_event = {
